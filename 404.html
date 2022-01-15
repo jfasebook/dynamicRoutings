@@ -6,6 +6,45 @@
     <title>404</title>
 </head>
 <body>
-    Estoy en 404
+    <div id="outlet">
+
+    </div>
+    <script>
+        const labels = {
+            add: '+',
+            sub: '-',
+            mul: '*',
+            div: '/',
+        }
+
+        const calculate = {
+            add: function(x, y) { return x + y },
+            sub: function(x, y) { return x - y },
+            mul: function(x, y) { return x * y },
+            div: function(x, y) { return x / y },
+        }
+
+        function render({op, x, y, result}) {
+            let out = document.getElementById('outlet')
+            let text = `${x} ${labels[op]} ${y} = ${result}`
+            out.innerHTML = text
+        }
+
+        window.addEventListener('load', function() {
+            let url          = window.location
+            let path         = url.pathname
+            let params       = path.split('/')
+            let [op, x, y]   = params.slice(-3)
+            let result       = calculate[op](x, y)
+
+            render({
+                op,
+                x,
+                y,
+                result
+            })
+        })
+
+    </script>
 </body>
 </html>
