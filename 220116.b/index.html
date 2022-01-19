@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <style>
+        body {
+            font-size: 32px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="outlet">
+
+    </h1>
+    <h1>Operaciones disponibles</h1>
+   <ul> 
+   <li><a href="#add/2/3">2+3</a></li>
+   <li><a href="#sub/2/3">2-3</a></li>
+   <li><a href="#mul/2/3">2*3</a></li>
+   <li><a href="#div/2/3">2/3</a></li>
+   </ul>
+
+   <script type="module">
+    import Calculator   from '/js/calculator.js'
+    import Renderer     from '/js/render.js'
+    import Reader       from '/js/reader.client.js'
+    
+    function handler() {
+        let url          = window.location
+        let {op, x, y}   = Reader.read(url)
+        let result       = Calculator[op](x, y)
+
+        Renderer.render({
+            op,
+            x,
+            y,
+            result
+        })
+    }
+
+    window.addEventListener('hashchange', handler)
+    window.addEventListener('load', handler)
+
+</script>
+</body>
+</html>
